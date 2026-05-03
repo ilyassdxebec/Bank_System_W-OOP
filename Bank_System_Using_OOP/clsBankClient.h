@@ -53,11 +53,6 @@ class clsBankClient : public clsPerson
 		 return _AccNumber;
 	 }
 
-	 void SetAccNumber(const string &AccNumber)
-	 {
-		 _AccNumber = AccNumber;
-	 }
-
 	 string PinCode()
 	 {
 		 return _PinCode;
@@ -159,7 +154,7 @@ class clsBankClient : public clsPerson
 
 	 static bool IsClientExist(const string &AccNumber)
 	 {
-		 
+
 		 clsBankClient Client = clsBankClient::Find(AccNumber);
 
 		 return (!Client.IsEmpty()) ;
