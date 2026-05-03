@@ -1,0 +1,168 @@
+#pragma once
+
+#include<iostream>
+#include<vector>
+#include<string>
+#include<fstream>
+#include"clsString.h"
+#include"clsPerson.h"
+
+using namespace std;
+
+class clsBankClient : public clsPerson
+{
+
+ private:
+     
+	 enum enMode { EmptyMode = 0, UpdateMode = 1 };
+
+	 string _AccNumber;	
+	 string _PinCode;
+	 float _AccBalance;
+	 enMode _Mode;
+
+	 static clsBankClient _ConvertLineToClientObject(const string& Line, string delim = "#//#")
+	 {
+
+		 vector<string> vWords;
+		 vWords = clsString::Split(Line, delim);
+
+		 return clsBankClient(enMode::UpdateMode, vWords.at(0), vWords.at(1), vWords.at(2), vWords.at(3), vWords.at(4), vWords.at(5), stod(vWords.at(6)) );
+	 }
+
+	 static clsBankClient _GetEmptyClientObject()
+	 {
+		 return clsBankClient(enMode::EmptyMode, "", "", "", "", "", "", 0);
+	 }
+
+
+ public:
+
+	 clsBankClient(const enMode &Mode ,const string& FirstName, const string& LastName, const string& PhoneNumber, const string& Email,
+		           const string &AccNumber ,const string &PinCode ,const float &AccBalance)
+		 :clsPerson(FirstName ,LastName ,PhoneNumber ,Email)
+	 {
+		 _Mode = Mode;
+		 _AccNumber = AccNumber;
+		 _PinCode = PinCode;
+		 _AccBalance = AccBalance;
+	 }
+
+	 string AccNumber()
+	 {
+		 return _AccNumber;
+	 }
+
+	 void SetAccNumber(const string &AccNumber)
+	 {
+		 _AccNumber = AccNumber;
+	 }
+
+	 string PinCode()
+	 {
+		 return _PinCode;
+	 }
+
+	 void SetPinCode(const string& PinCode)
+	 {
+		 _PinCode = PinCode;
+	 }
+
+	 float AccBalance()
+	 {
+		 return _AccBalance;
+	 }
+
+	 void SetAccBalance(const float& AccBalance)
+	 {
+		 _AccBalance = AccBalance;
+	 }
+     
+	 void Print()
+	 {
+		 cout << "++++++ Client's Informations ++++++\n\n";
+
+		 cout << "___________________________________\n";
+		 cout << "First Name   : " << FirstName() << endl;
+		 cout << "Last Name    : " << LastName() << endl;
+		 cout << "Phone Number : " << PhoneNumber() << endl;
+		 cout << "Email Adress : " << Email() << endl;
+		 cout << "Acc Number   : " << _AccNumber << endl;
+		 cout << "Pin Code     : " << _PinCode << endl;
+		 cout << "Acc Balance  : " << _AccBalance << endl;
+		 cout << "___________________________________\n\n";
+
+	 }
+
+	 static clsBankClient Find(const string& AccNumber)
+	 {
+
+		 fstream MyFile;
+		 vector <clsBankClient> Clients;
+
+		 MyFile.open("Clients.txt", ios::in);
+
+		 if (MyFile.is_open())
+		 {
+			 string Line;
+
+			 while (getline(MyFile, Line))
+			 {
+				 clsBankClient Client = _ConvertLineToClientObject(Line);
+
+				 if (Client.AccNumber() == AccNumber)
+				 {
+					 MyFile.close();
+					 return Client;
+				 }
+			 }
+
+			 MyFile.close();
+		 }
+
+		 return _GetEmptyClientObject();
+	 }
+
+	 static clsBankClient Find(const string& AccNumber ,const string &PinCode)
+	 {
+
+		 fstream MyFile;
+		 vector <clsBankClient> Clients;
+
+		 MyFile.open("Clients.txt", ios::in);
+
+		 if (MyFile.is_open())
+		 {
+			 string Line;
+
+			 while (getline(MyFile, Line))
+			 {
+				 clsBankClient Client = _ConvertLineToClientObject(Line);
+
+				 if (Client.AccNumber() == AccNumber && Client.PinCode() == PinCode)
+				 {
+					 MyFile.close();
+					 return Client;
+				 }
+			 }
+
+			 MyFile.close();
+		 }
+
+		 return _GetEmptyClientObject();
+	 }
+
+	 bool IsEmpty()
+	 {
+		 return (_Mode == EmptyMode );
+	 }
+
+	 static bool IsClientExist(const string &AccNumber)
+	 {
+		 
+		 clsBankClient Client = clsBankClient::Find(AccNumber);
+
+		 return (!Client.IsEmpty()) ;
+	 }
+};
+
