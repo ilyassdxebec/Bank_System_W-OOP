@@ -159,5 +159,7 @@ class clsBankClient : public clsPerson
 
 		 return (!Client.IsEmpty()) ;
 	 }
+
+
 };
 
