@@ -50,7 +50,6 @@ public:
 		while (true)
 		{
 
-			cout << "Please enter a number : ";
 			cin >> Number;
 
 			if (cin.fail())
@@ -73,7 +72,28 @@ public:
 		while (true)
 		{
 
-			cout << "Please enter a number : ";
+			cin >> Number;
+
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(numeric_limits <streamsize> ::max(), '\n');
+
+				cout << message << endl;
+			}
+
+			else
+				return Number;
+		}
+	}
+
+	static float ReadFloatNumber(const string& message = "Invalid Input! ,Try again:")
+	{
+		float Number;
+
+		while (true)
+		{
+
 			cin >> Number;
 
 			if (cin.fail())
@@ -120,5 +140,14 @@ public:
 	static bool IsValidDate(const clsDate& Date)
 	{
 		return clsDate::IsValid(Date);
+	}
+
+	static string ReadString()
+	{
+
+		string S1 = "";
+
+		getline(cin >> ws, S1);
+		return S1;
 	}
 };

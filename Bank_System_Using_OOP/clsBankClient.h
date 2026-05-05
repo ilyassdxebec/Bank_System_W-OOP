@@ -30,9 +30,84 @@ class clsBankClient : public clsPerson
 		 return clsBankClient(enMode::UpdateMode, vWords.at(0), vWords.at(1), vWords.at(2), vWords.at(3), vWords.at(4), vWords.at(5), stod(vWords.at(6)) );
 	 }
 
+	 static vector <clsBankClient> _LoadClientsDataFromFile(const string& FileName)
+	 {
+		 fstream MyFile;
+		 vector <clsBankClient> vClients;
+
+		 MyFile.open(FileName, ios::in);
+
+		 if (MyFile.is_open())
+		 {
+			 string Line;
+
+			 while (getline(MyFile, Line))
+			 {
+				 vClients.push_back(_ConvertLineToClientObject(Line));
+			 }
+
+			 MyFile.close();
+		 }
+
+		 return vClients;
+	 }
+
+	 static string _ConvertClientObjectToLine(clsBankClient &Client, string delim = "#//#")
+	 {
+
+		 string Line = "";
+
+		 Line += Client.FirstName() + delim;
+		 Line += Client.LastName() + delim;
+		 Line += Client.PhoneNumber() + delim;
+		 Line += Client.Email() + delim;
+		 Line += Client.AccNumber() + delim;
+		 Line += Client.PinCode() + delim;
+		 Line += to_string(Client.AccBalance());
+
+		 return Line;
+	 }
+
+
+	 static void _SaveClientsObjectToFile(const string& FileName, vector <clsBankClient> &vClients)
+	 {
+
+		 fstream MyFile;
+
+		 MyFile.open(FileName, ios::out);
+
+		 if (MyFile.is_open())
+		 {
+			 for (clsBankClient &C : vClients)
+			 {
+					 MyFile << _ConvertClientObjectToLine(C) << endl;
+			 }
+
+			 MyFile.close();
+		 }
+	 }
+
 	 static clsBankClient _GetEmptyClientObject()
 	 {
 		 return clsBankClient(enMode::EmptyMode, "", "", "", "", "", "", 0);
+	 }
+
+	 void _Update()
+	 {
+
+		 vector <clsBankClient> vClients;
+		 vClients = _LoadClientsDataFromFile("Clients.txt");
+
+		 for (clsBankClient &C : vClients)
+		 {
+			 if (C.AccNumber() == AccNumber())
+			 {
+				 C = *this;
+				 break;
+			 }
+		 }
+
+		 _SaveClientsObjectToFile("Clients.txt", vClients);
 	 }
 
 
@@ -75,7 +150,7 @@ class clsBankClient : public clsPerson
      
 	 void Print()
 	 {
-		 cout << "++++++ Client's Informations ++++++\n\n";
+		 cout << "\n\n++++++ Client's Informations ++++++\n\n";
 
 		 cout << "___________________________________\n";
 		 cout << "First Name   : " << FirstName() << endl;
@@ -160,6 +235,26 @@ class clsBankClient : public clsPerson
 		 return (!Client.IsEmpty()) ;
 	 }
 
+	 enum enSavingResults{svFailedEmptyObject = 0 ,svSuccedded = 1};
 
+	 enSavingResults Save()
+	 {
+		 switch (_Mode)
+		 {
+
+		  case EmptyMode:
+
+			   return svFailedEmptyObject;
+
+
+		  case UpdateMode:
+
+			   _Update();
+			   return svSuccedded;
+
+
+		  default:
+			  break;
+		 }
+	 }
 };
-
