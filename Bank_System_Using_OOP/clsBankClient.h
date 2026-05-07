@@ -110,6 +110,19 @@ class clsBankClient : public clsPerson
 		 _SaveClientsObjectToFile("Clients.txt", vClients);
 	 }
 
+	 static void _AddLineToFile(const string& Line, const string& FileName)
+	 {
+		 fstream MyFile;
+
+		 MyFile.open(FileName, ios::app);
+
+		 if (MyFile.is_open())
+		 {
+			 MyFile << Line << endl;
+		 }
+
+		 MyFile.close();
+	 }
 
  public:
 
@@ -123,12 +136,12 @@ class clsBankClient : public clsPerson
 		 _AccBalance = AccBalance;
 	 }
 
-	 string AccNumber()
+	 string AccNumber() const 
 	 {
 		 return _AccNumber;
 	 }
 
-	 string PinCode()
+	 string PinCode() const 
 	 {
 		 return _PinCode;
 	 }
@@ -138,7 +151,7 @@ class clsBankClient : public clsPerson
 		 _PinCode = PinCode;
 	 }
 
-	 float AccBalance()
+	 float AccBalance() const
 	 {
 		 return _AccBalance;
 	 }
@@ -148,7 +161,7 @@ class clsBankClient : public clsPerson
 		 _AccBalance = AccBalance;
 	 }
      
-	 void Print()
+	 void Print () const
 	 {
 		 cout << "\n\n++++++ Client's Informations ++++++\n\n";
 

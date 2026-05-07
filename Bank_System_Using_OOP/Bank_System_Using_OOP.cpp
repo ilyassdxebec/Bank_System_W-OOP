@@ -26,6 +26,27 @@ void ReadClientData(clsBankClient &Client)
 	Client.SetAccBalance(clsInputValidate::ReadFloatNumber());
 }
 
+void CheckSavingResults(const clsBankClient::enSavingResults &SavingResult , const clsBankClient &Client)
+{
+
+	switch (SavingResult)
+	{
+
+	case clsBankClient::enSavingResults::svFailedEmptyObject:
+
+		cout << "\nCouldn't Update Client's Data Failed Because Of Empty Object!";
+		break;
+
+
+	case clsBankClient::enSavingResults::svSuccedded:
+
+		cout << "\nClient's Info Updated Successfully !!!";
+		Client.Print();
+		break;
+	}
+
+}
+
 void UpdateClient()
 {
 
@@ -50,25 +71,11 @@ void UpdateClient()
 	clsBankClient::enSavingResults SavingResult;
 	SavingResult = Client.Save();
 
-	switch (SavingResult)
-	{
-
-	 case clsBankClient::enSavingResults::svFailedEmptyObject :
-
-		  cout << "\nCouldn't Update Client's Data Failed Because Of Empty Object!";
-		  break;
-
-     case clsBankClient::enSavingResults::svSuccedded :
-
-		  cout << "\nClient's Inof Updated Successfully !!!";
-		  Client.Print();
-		  break;
-	}
+	CheckSavingResults(SavingResult, Client);
 
 }
 
 int main()
 {
 
-	UpdateClient();
 }

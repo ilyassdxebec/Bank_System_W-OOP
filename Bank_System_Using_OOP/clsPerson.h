@@ -23,7 +23,7 @@ class clsPerson
 		 _Email = Email;
 	 }
 
-	 string FirstName()
+	 string  FirstName () const
 	 {
 		 return _FirstName;
 	 }
@@ -33,7 +33,7 @@ class clsPerson
 		 _FirstName = FirstName;
 	 }
 
-	 string LastName()
+	 string LastName() const
 	 {
 		 return _LastName;
 	 }
@@ -43,7 +43,7 @@ class clsPerson
 		 _LastName = LastName;
 	 }
 
-	 string PhoneNumber()
+	 string PhoneNumber() const
 	 {
 		 return _PhoneNumber;
 	 }
@@ -53,7 +53,7 @@ class clsPerson
 		 _PhoneNumber = PhoneNumber;
 	 }
 
-	 string Email()
+	 string Email() const
 	 {
 		 return _Email;
 	 }
