@@ -14,7 +14,7 @@ class clsBankClient : public clsPerson
 
  private:
      
-	 enum enMode { EmptyMode = 0, UpdateMode = 1 };
+	 enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
 
 	 string _AccNumber;	
 	 string _PinCode;
@@ -108,6 +108,11 @@ class clsBankClient : public clsPerson
 		 }
 
 		 _SaveClientsObjectToFile("Clients.txt", vClients);
+	 }
+
+	 void _AddNewClient()
+	 {
+		 _AddLineToFile(_ConvertClientObjectToLine(*this) ,"Clients.txt");
 	 }
 
 	 static void _AddLineToFile(const string& Line, const string& FileName)
@@ -248,10 +253,19 @@ class clsBankClient : public clsPerson
 		 return (!Client.IsEmpty()) ;
 	 }
 
-	 enum enSavingResults{svFailedEmptyObject = 0 ,svSuccedded = 1};
+	 static clsBankClient GetAddNewClientObject(const string &AccNumber)
+	 {
+
+		 return clsBankClient(enMode::AddNewMode, "", "", "", "", AccNumber, "", 0);
+	 }
+
+
+	 enum enSavingResults{svFailedEmptyObject = 0 ,svUpdateSuccedded = 1 ,svAddSuccedded = 2 , svFailedAccNumberExists = 3};
+
 
 	 enSavingResults Save()
 	 {
+
 		 switch (_Mode)
 		 {
 
@@ -263,11 +277,23 @@ class clsBankClient : public clsPerson
 		  case UpdateMode:
 
 			   _Update();
-			   return svSuccedded;
+			   return svUpdateSuccedded;
 
 
-		  default:
-			  break;
+		  case AddNewMode:
+			   
+
+			  if (IsClientExist(_AccNumber))
+			  {
+				  return svFailedAccNumberExists;
+			  }
+
+			  else
+			  {
+				  _AddNewClient();
+				  _Mode = UpdateMode;
+				  return svAddSuccedded;
+			  }
 		 }
 	 }
 };
