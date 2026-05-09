@@ -268,6 +268,22 @@ class clsBankClient : public clsPerson
 		 return _LoadClientsDataFromFile("Clients.txt");
 	 }
 
+	 static double GetTotalBalances()
+	 {
+
+		 vector <clsBankClient> vClients;
+		 vClients = _LoadClientsDataFromFile("Clients.txt");
+
+		 double TotalBalances = 0;
+
+		 for (clsBankClient &C : vClients)
+		 {
+			 TotalBalances += C.AccBalance();
+		 }
+
+		 return TotalBalances;
+	 }
+
 	 bool Delete()
 	 {
 

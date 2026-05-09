@@ -43,6 +43,11 @@ class clsPerson
 		 _LastName = LastName;
 	 }
 
+	 string FullName() const
+	 {
+		 return _FirstName + " " + _LastName;
+	 }
+
 	 string PhoneNumber() const
 	 {
 		 return _PhoneNumber;
