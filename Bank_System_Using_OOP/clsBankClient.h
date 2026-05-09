@@ -20,7 +20,7 @@ class clsBankClient : public clsPerson
 	 string _PinCode;
 	 enMode _Mode;
 	 float _AccBalance;
-	 bool _MarkForDelete;
+	 bool _MarkForDelete = false;
 
 	 static clsBankClient _ConvertLineToClientObject(const string& Line, string delim = "#//#")
 	 {
@@ -263,6 +263,10 @@ class clsBankClient : public clsPerson
 		 return clsBankClient(enMode::AddNewMode, "", "", "", "", AccNumber, "", 0);
 	 }
 
+	 static vector <clsBankClient> GetClientsList()
+	 {
+		 return _LoadClientsDataFromFile("Clients.txt");
+	 }
 
 	 bool Delete()
 	 {
