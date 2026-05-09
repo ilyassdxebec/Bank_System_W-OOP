@@ -14,12 +14,13 @@ class clsBankClient : public clsPerson
 
  private:
      
-	 enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
+	 enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2};
 
 	 string _AccNumber;	
 	 string _PinCode;
-	 float _AccBalance;
 	 enMode _Mode;
+	 float _AccBalance;
+	 bool _MarkForDelete;
 
 	 static clsBankClient _ConvertLineToClientObject(const string& Line, string delim = "#//#")
 	 {
@@ -80,7 +81,10 @@ class clsBankClient : public clsPerson
 		 {
 			 for (clsBankClient &C : vClients)
 			 {
+				 if (C._MarkForDelete != true)
+				 {
 					 MyFile << _ConvertClientObjectToLine(C) << endl;
+				 }
 			 }
 
 			 MyFile.close();
@@ -110,7 +114,7 @@ class clsBankClient : public clsPerson
 		 _SaveClientsObjectToFile("Clients.txt", vClients);
 	 }
 
-	 void _AddNewClient()
+	 void _AddNew()
 	 {
 		 _AddLineToFile(_ConvertClientObjectToLine(*this) ,"Clients.txt");
 	 }
@@ -260,6 +264,32 @@ class clsBankClient : public clsPerson
 	 }
 
 
+	 bool Delete()
+	 {
+
+		 vector <clsBankClient> vClients;
+		 vClients = _LoadClientsDataFromFile("Clients.txt");
+
+
+		 for (clsBankClient& C : vClients)
+		 {
+			 if (C.AccNumber() == AccNumber())
+			 {
+
+				 C._MarkForDelete = true;
+
+				 _SaveClientsObjectToFile("Clients.txt", vClients);
+
+				 *this = _GetEmptyClientObject();
+
+				 return true;
+
+			 }
+		 }
+
+		  return false;
+	 }
+
 	 enum enSavingResults{svFailedEmptyObject = 0 ,svUpdateSuccedded = 1 ,svAddSuccedded = 2 , svFailedAccNumberExists = 3};
 
 
@@ -290,9 +320,10 @@ class clsBankClient : public clsPerson
 
 			  else
 			  {
-				  _AddNewClient();
+				  _AddNew();
 				  _Mode = UpdateMode;
 				  return svAddSuccedded;
+
 			  }
 		 }
 	 }

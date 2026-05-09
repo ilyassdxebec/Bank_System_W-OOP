@@ -150,4 +150,5 @@ public:
 		getline(cin >> ws, S1);
 		return S1;
 	}
+
 };
