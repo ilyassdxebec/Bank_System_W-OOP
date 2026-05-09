@@ -274,5 +274,5 @@ void ListTotalBalances()
 int main()
 {
 
-	ListTotalBalances();
+	ListClients();
 }
