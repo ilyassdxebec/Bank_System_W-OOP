@@ -65,6 +65,29 @@ public:
 		}
 	}
 
+	static int ReadShortNumber(const string& message = "Invalid Input! ,Try again:")
+	{
+
+		short Number;
+
+		while (true)
+		{
+
+			cin >> Number;
+
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(numeric_limits <streamsize> ::max(), '\n');
+
+				cout << message << endl;
+			}
+
+			else
+				return Number;
+		}
+	}
+
 	static double ReadDoubleNumber(const string& message = "Invalid Input! ,Try again:")
 	{
 		double Number;
@@ -113,6 +136,20 @@ public:
 	{
 
 		int Number = ReadIntNumber();
+
+		while (!IsNumberBetween(Number, From, To))
+		{
+			cout << message << endl;
+			Number = ReadIntNumber();
+		}
+
+		return Number;
+	}
+
+	static int ReadShortNumberBetween(const short& From, const short& To, const string& message = "Invalid Input! ,Try again:")
+	{
+
+		short Number = ReadShortNumber();
 
 		while (!IsNumberBetween(Number, From, To))
 		{

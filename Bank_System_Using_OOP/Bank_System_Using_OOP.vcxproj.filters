@@ -15,6 +15,15 @@
     <Filter Include="Header Files\Project Classes">
       <UniqueIdentifier>{41cd6ae0-4ee0-454c-8902-f15d1fb750c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Project Classes\Entities">
+      <UniqueIdentifier>{3948c5e1-80f8-463d-8ec2-8da90038fff9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Project Classes\Logic">
+      <UniqueIdentifier>{1b8e7eec-9601-4449-96f9-307dbc0d200b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Project Classes\UI">
+      <UniqueIdentifier>{0b6a3b9c-9ac3-49fd-9e12-385dacec8729}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bank_System_Using_OOP.cpp">
@@ -35,10 +44,16 @@
       <Filter>Header Files\MyLibraries</Filter>
     </ClInclude>
     <ClInclude Include="clsBankClient.h">
-      <Filter>Header Files\Project Classes</Filter>
+      <Filter>Header Files\Project Classes\Logic</Filter>
     </ClInclude>
     <ClInclude Include="clsPerson.h">
-      <Filter>Header Files\Project Classes</Filter>
+      <Filter>Header Files\Project Classes\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="clsMainScreen.h">
+      <Filter>Header Files\Project Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="clsScreen.h">
+      <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
