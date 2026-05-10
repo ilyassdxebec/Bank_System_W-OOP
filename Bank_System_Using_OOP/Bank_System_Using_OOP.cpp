@@ -28,44 +28,6 @@ void ReadClientData(clsBankClient &Client)
 	Client.SetAccBalance(clsInputValidate::ReadFloatNumber());
 }
 
-void CheckSavingResults(const clsBankClient::enSavingResults &SavingResult , const clsBankClient &Client)
-{
-
-	switch (SavingResult)
-	{
-
-	 case clsBankClient::enSavingResults::svFailedEmptyObject:
-
-		cout << "\nCouldn't Update Client's Data Failed Because Of Empty Object!\n";
-		break;
-
-
-	 case clsBankClient::enSavingResults::svUpdateSuccedded:
-
-		cout << "\nClient's Info Updated Successfully !!!\n";
-		Client.Print();
-		break;
-
-    
-	 case clsBankClient::enSavingResults::svAddSuccedded:
-
-		cout << "\nClient's Info Added Successfully !!!\n";
-		Client.Print();
-		break;
-
-
-     case clsBankClient::enSavingResults::svFailedAccNumberExists:
-
-		 cout << "\nClient Already Exists!\n";
-		 break;
-
-
-	 default:
-		 break;
-	}
-
-}
-
 void UpdateClient()
 {
 
@@ -90,7 +52,39 @@ void UpdateClient()
 	clsBankClient::enSavingResults SavingResult;
 	SavingResult = Client.Save();
 
-	CheckSavingResults(SavingResult, Client);
+
+	switch (SavingResult)
+	{
+
+	case clsBankClient::enSavingResults::svFailedEmptyObject:
+
+		cout << "\nCouldn't Update Client's Data Failed Because Of Empty Object!\n";
+		break;
+
+
+	case clsBankClient::enSavingResults::svUpdateSuccedded:
+
+		cout << "\nClient's Info Updated Successfully !!!\n";
+		Client.Print();
+		break;
+
+
+	case clsBankClient::enSavingResults::svAddSuccedded:
+
+		cout << "\nClient's Info Added Successfully !!!\n";
+		Client.Print();
+		break;
+
+
+	case clsBankClient::enSavingResults::svFailedAccNumberExists:
+
+		cout << "\nClient Already Exists!\n";
+		break;
+
+
+	default:
+		break;
+	}
 
 }
 
@@ -118,7 +112,39 @@ void AddNewClient()
 	clsBankClient::enSavingResults SavingResult;
 	SavingResult = Client.Save();
 
-	CheckSavingResults(SavingResult, Client);
+
+	switch (SavingResult)
+	{
+
+	case clsBankClient::enSavingResults::svFailedEmptyObject:
+
+		cout << "\nCouldn't Update Client's Data Failed Because Of Empty Object!\n";
+		break;
+
+
+	case clsBankClient::enSavingResults::svUpdateSuccedded:
+
+		cout << "\nClient's Info Updated Successfully !!!\n";
+		Client.Print();
+		break;
+
+
+	case clsBankClient::enSavingResults::svAddSuccedded:
+
+		cout << "\nClient's Info Added Successfully !!!\n";
+		Client.Print();
+		break;
+
+
+	case clsBankClient::enSavingResults::svFailedAccNumberExists:
+
+		cout << "\nClient Already Exists!\n";
+		break;
+
+
+	default:
+		break;
+	}
 
 }
 
