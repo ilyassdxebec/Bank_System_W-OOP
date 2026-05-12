@@ -3,6 +3,7 @@
 #include<iostream>
 #include"clsScreen.h"
 #include"clsListClientsScreen.h"
+#include"clsAddNewClientScreen.h"
 #include"clsInputValidate.h"
 
 using namespace std;
@@ -40,25 +41,25 @@ class clsMainScreen : protected clsScreen
 	 static void _ShowAllClientsScreen()
 	 {
 
-		 clsListClientsScreen::ListClients();
+		 clsListClientsScreen::Show();
 	 }
 
-	 static void _ShowAddNewClientsScreen()
+	 static void _ShowAddNewClientScreen()
+	 {
+		 clsAddNewClientScreen::Show();
+	 }
+
+	 static void _ShowDeleteClientScreen()
 	 {
 
 	 }
 
-	 static void _ShowDeleteClientsScreen()
+	 static void _ShowUpdateClientScreen()
 	 {
 
 	 }
 
-	 static void _ShowUpdateClientsScreen()
-	 {
-
-	 }
-
-	 static void _ShowFindClientsScreen()
+	 static void _ShowFindClientScreen()
 	 {
 
 	 }
@@ -94,28 +95,28 @@ class clsMainScreen : protected clsScreen
 		  case eAdd:
 
 			  system("cls");
-			  _ShowAddNewClientsScreen();
+			  _ShowAddNewClientScreen();
 			  _GoBackToMainMenu();
 			  break;
 
 		  case eDelete:
 
 			  system("cls");
-			  _ShowDeleteClientsScreen();
+			  _ShowDeleteClientScreen();
 			  _GoBackToMainMenu();
 			  break;
 
 		  case eUpdate:
 
 			  system("cls");
-			  _ShowUpdateClientsScreen();
+			  _ShowUpdateClientScreen();
 			  _GoBackToMainMenu();
 			  break;
 
 		  case eFind:
 
 			  system("cls");
-			  _ShowFindClientsScreen();
+			  _ShowFindClientScreen();
 			  _GoBackToMainMenu();
 			  break;
 

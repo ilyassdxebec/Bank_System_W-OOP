@@ -21,13 +21,13 @@ class clsListClientsScreen : protected clsScreen
 			 << "|" << left << setw(19) << Client.FirstName()
 			 << "|" << left << setw(19) << Client.LastName()
 			 << "|" << left << setw(19) << Client.PhoneNumber()
-			 << "|" << left << setw(22) << Client.Email()
+			 << "|" << left << setw(27) << Client.Email()
 			 << "|" << left << setw(14) << Client.AccBalance() << endl;
 	 }
   
  public:
 
-	 static void ListClients()
+	 static void Show()
 	 {
 
 		 vector <clsBankClient> vClients;
@@ -47,16 +47,16 @@ class clsListClientsScreen : protected clsScreen
 			 
 			 _ShowScreenHeader(Title, SubTitle);
 
-			 cout << "|________________|_____________|___________________|___________________|___________________|______________________|______________\n";
-			 cout << "| Account Number | PinCode     | First Name        | Last Name         | Phone Number      | Email                | Balance      \n";
-			 cout << "|________________|_____________|___________________|___________________|___________________|______________________|______________\n";
+			 cout << "|________________|_____________|___________________|___________________|___________________|___________________________|______________\n";
+			 cout << "| Account Number | PinCode     | First Name        | Last Name         | Phone Number      | Email                     | Balance      \n";
+			 cout << "|________________|_____________|___________________|___________________|___________________|___________________________|______________\n";
 
 			 for (const clsBankClient& C : vClients)
 			 {
 				 _PrintClientRecordInfo(C);
 			 }
 
-			 cout << "|________________|_____________|___________________|___________________|___________________|______________________|______________\n\n";
+			 cout << "|________________|_____________|___________________|___________________|___________________|___________________________|______________\n\n";
 
 		 }
 
