@@ -1,5 +1,5 @@
 #include <iostream>
-#include<iomanip>
+
 #include"clsBankClient.h"
 #include"clsInputValidate.h"
 #include"clsMainScreen.h"
@@ -7,125 +7,7 @@
 
 using namespace std;
 
-//void UpdateClient()
-//{
 //
-//	string AccNumber;
-//
-//	cout << "Please Enter Client's Account Number : ";
-//	AccNumber = clsInputValidate::ReadString();
-//
-//	while (!clsBankClient::IsClientExist(AccNumber))
-//	{
-//		cout << "\nClient With Account Number Doesn't Exist! Please Try Again : ";
-//		AccNumber = clsInputValidate::ReadString();
-//	}
-//
-//	clsBankClient Client = clsBankClient::Find(AccNumber);
-//	Client.Print();
-//
-//	cout << "\n+++++ Update Client's Info +++++\n";
-//
-//	ReadClientData(Client);
-//
-//	clsBankClient::enSavingResults SavingResult;
-//	SavingResult = Client.Save();
-//
-//
-//	switch (SavingResult)
-//	{
-//
-//	case clsBankClient::enSavingResults::svFailedEmptyObject:
-//
-//		cout << "\nCouldn't Update Client's Data Failed Because Of Empty Object!\n";
-//		break;
-//
-//
-//	case clsBankClient::enSavingResults::svUpdateSuccedded:
-//
-//		cout << "\nClient's Info Updated Successfully !!!\n";
-//		Client.Print();
-//		break;
-//
-//
-//	case clsBankClient::enSavingResults::svAddSuccedded:
-//
-//		cout << "\nClient's Info Added Successfully !!!\n";
-//		Client.Print();
-//		break;
-//
-//
-//	case clsBankClient::enSavingResults::svFailedAccNumberExists:
-//
-//		cout << "\nClient Already Exists!\n";
-//		break;
-//
-//
-//	default:
-//		break;
-//	}
-//
-//}
-//
-//char ConfirmDeletion()
-//{
-//    
-//	char Choice;
-//
-//	cout << "\nAre you sure you want to delete this Client? (y/n) : ";
-//	cin >> Choice;
-//
-//	while (toupper(Choice) != 'Y' && toupper(Choice) != 'N')
-//	{
-//		cout << "\nInvalid Choice! Enter a vaild choice (y/n) : ";
-//		cin >> Choice;
-//	}
-//
-//	return Choice;
-//}
-//
-//void DeleteClient()
-//{
-//    
-//	string AccNumber;
-//	char Choice;
-//
-//	cout << "Please Enter Client's Account Number : ";
-//	AccNumber = clsInputValidate::ReadString();
-//
-//	while (!clsBankClient::IsClientExist(AccNumber))
-//	{
-//		cout << "\nClient With Account Number Doesn't Exist! Please Try Again : ";
-//		AccNumber = clsInputValidate::ReadString();
-//	}
-//
-//	clsBankClient Client = clsBankClient::Find(AccNumber);
-//	Client.Print();
-//
-//	Choice = ConfirmDeletion();
-//
-//	if (toupper(Choice) == 'Y')
-//	{
-//
-//		if (Client.Delete())
-//		{
-//			cout << "\nClient Was Deleted Successfully !!!\n";
-//			Client.Print();
-//		}
-//
-//		else
-//		{
-//			cout << "\nError ,Couldn't Delete Client!\n";
-//		}
-//	}
-//
-//	else
-//	{
-//		cout << "\nClient Wasn't Deleted as you wanted !\n";
-//	}
-//	
-//
-//}
 //
 //
 //void PrintClientRecordBalanceLine(const clsBankClient &Client)

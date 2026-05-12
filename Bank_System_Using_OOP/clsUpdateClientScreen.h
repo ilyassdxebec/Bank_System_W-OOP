@@ -5,14 +5,13 @@
 #include"clsInputValidate.h"
 #include"clsBankClient.h"
 
-
 using namespace std;
 
-class clsAddNewClientScreen : protected clsScreen
+class clsUpdateClientScreen : protected clsScreen
 {
 
  private:
-
+ 
 	 static void _ReadClientData(clsBankClient& Client)
 	 {
 
@@ -36,9 +35,9 @@ class clsAddNewClientScreen : protected clsScreen
 	 }
 
 
-	 static void _PrintClient(const clsBankClient &Client)
+	 static void _PrintClient(const clsBankClient& Client)
 	 {
-        
+
 		 cout << "\n\n++++++ Client's Informations ++++++\n\n";
 
 		 cout << "___________________________________\n";
@@ -53,59 +52,81 @@ class clsAddNewClientScreen : protected clsScreen
 
 	 }
 
+	 static char _ConfirmUpdate()
+	 {
 
+		 char Choice;
+
+		 cout << "\nAre you sure you want to Update this Client? (y/n) : ";
+		 cin >> Choice;
+
+		 while (toupper(Choice) != 'Y' && toupper(Choice) != 'N')
+		 {
+			 cout << "\nInvalid Choice! Enter a vaild choice (y/n) : ";
+			 cin >> Choice;
+		 }
+
+		 return Choice;
+	 }
 
  public:
-
+   
 	 static void Show()
 	 {
 
-		 _ShowScreenHeader("+++ Add New Client Screen+++");
+		 _ShowScreenHeader("+++ Update Client Screen +++");
 
 		 string AccNumber;
+		 char Choice;
 
 		 cout << "Please Enter Client's Account Number : ";
 		 AccNumber = clsInputValidate::ReadString();
 
-		 while (clsBankClient::IsClientExist(AccNumber))
+		 while (!clsBankClient::IsClientExist(AccNumber))
 		 {
-			 cout << "\nClient With Account Number Already Exist! Please Try Again : ";
+			 cout << "\nClient With Account Number Doesn't Exist! Please Try Again : ";
 			 AccNumber = clsInputValidate::ReadString();
 		 }
 
-		 clsBankClient Client = clsBankClient::GetAddNewClientObject(AccNumber);
+		 clsBankClient Client = clsBankClient::Find(AccNumber);
+		 _PrintClient(Client);
 
+		 Choice = _ConfirmUpdate();
 
-		 cout << "\n+++++ Adding New Client +++++\n";
-
-		 _ReadClientData(Client);
-
-		 clsBankClient::enSavingResults SavingResult;
-		 SavingResult = Client.Save();
-
-
-		 switch (SavingResult)
+		 if (toupper(Choice) == 'Y')
 		 {
+			 cout << "\n+++++ Update Client's Info +++++\n";
+
+			 _ReadClientData(Client);
+
+			 clsBankClient::enSavingResults SavingResult;
+			 SavingResult = Client.Save();
+
+
+			 switch (SavingResult)
+			 {
 
 			 case clsBankClient::enSavingResults::svFailedEmptyObject:
 
 				 cout << "\nCouldn't Update Client's Data Failed Because Of Empty Object!\n";
 				 break;
 
-			 case clsBankClient::enSavingResults::svAddSuccedded:
 
-				 cout << "\nClient's Info Added Successfully !!!\n";
+			 case clsBankClient::enSavingResults::svUpdateSuccedded:
+
+				 cout << "\nClient's Info Updated Successfully !!!\n";
 				 _PrintClient(Client);
 				 break;
 
-			 case clsBankClient::enSavingResults::svFailedAccNumberExists:
-
-				 cout << "\nClient Already Exists!\n";
-				 break;
 
 			 default:
 				 break;
+			 }
+		 }
 
+		 else
+		 {
+			 cout << "\nClient Wasn't Updated as you wanted !!!";
 		 }
 	 }
 };

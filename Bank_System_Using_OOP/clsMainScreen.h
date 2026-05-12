@@ -4,7 +4,10 @@
 #include"clsScreen.h"
 #include"clsListClientsScreen.h"
 #include"clsAddNewClientScreen.h"
+#include"clsDeleteClientScreen.h"
 #include"clsInputValidate.h"
+#include"clsUpdateClientScreen.h"
+#include"clsFindClientScreen.h"
 
 using namespace std;
 
@@ -51,17 +54,17 @@ class clsMainScreen : protected clsScreen
 
 	 static void _ShowDeleteClientScreen()
 	 {
-
+		 clsDeleteClientScreen::Show();
 	 }
 
 	 static void _ShowUpdateClientScreen()
 	 {
-
+		 clsUpdateClientScreen::Show();
 	 }
 
 	 static void _ShowFindClientScreen()
 	 {
-
+		 clsFindClientScreen::Show();
 	 }
 
 	 static void _ShowTransactionsMenu()

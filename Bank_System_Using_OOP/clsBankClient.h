@@ -170,22 +170,6 @@ class clsBankClient : public clsPerson
 		_AccBalance = AccBalance;
 	}
 
-	//void Print() const
-	//{
-	//	cout << "\n\n++++++ Client's Informations ++++++\n\n";
-
-	//	cout << "___________________________________\n";
-	//	cout << "First Name   : " << FirstName() << endl;
-	//	cout << "Last Name    : " << LastName() << endl;
-	//	cout << "Phone Number : " << PhoneNumber() << endl;
-	//	cout << "Email Adress : " << Email() << endl;
-	//	cout << "Acc Number   : " << _AccNumber << endl;
-	//	cout << "Pin Code     : " << _PinCode << endl;
-	//	cout << "Acc Balance  : " << _AccBalance << endl;
-	//	cout << "___________________________________\n\n";
-
-	//}
-
 	static clsBankClient Find(const string& AccNumber)
 	{
 
