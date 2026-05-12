@@ -2,6 +2,7 @@
 #include<iomanip>
 #include"clsBankClient.h"
 #include"clsInputValidate.h"
+#include"clsMainScreen.h"
 #include"clsUtil.h"
 
 using namespace std;
@@ -208,17 +209,6 @@ void DeleteClient()
 
 }
 
-void PrintClientRecordInfo(const clsBankClient& Client)
-{
-
-   cout << "|" << left << setw(16) << Client.AccNumber()
-		<< "|" << left << setw(13) << Client.PinCode()
-		<< "|" << left << setw(19) << Client.FirstName()
-		<< "|" << left << setw(19) << Client.LastName()
-		<< "|" << left << setw(19) << Client.PhoneNumber()
-		<< "|" << left << setw(22) << Client.Email()
-		<< "|" << left << setw(14) << Client.AccBalance() << endl;
-}
 
 void PrintClientRecordBalanceLine(const clsBankClient &Client)
 {
@@ -227,38 +217,6 @@ void PrintClientRecordBalanceLine(const clsBankClient &Client)
 		<< "|" << left << setw(25) << Client.FullName()
 		<< "|" << left << setw(16) << Client.AccBalance() << endl;
 
-}
-
-void ListClients()
-{
-
-	vector <clsBankClient> vClients;
-	vClients = clsBankClient::GetClientsList();
-
-
-	if (vClients.size() == 0)
-	{
-		cout << "\nThe File Is Currently Empty !!!\n";
-	}
-
-	else
-	{
-
-		cout << "\n++++++++++++Clients List has (" << vClients.size() << ") Client(s)++++++++++++\n\n";
-
-		cout << "|________________|_____________|___________________|___________________|___________________|______________________|______________\n";
-		cout << "| Account Number | PinCode     | First Name        | Last Name         | Phone Number      | Email                | Balance      \n";
-		cout << "|________________|_____________|___________________|___________________|___________________|______________________|______________\n";
-
-		for (const clsBankClient &C : vClients)
-		{
-			PrintClientRecordInfo(C);
-		}
-
-		cout << "|________________|_____________|___________________|___________________|___________________|______________________|______________\n\n";
-
-	}
-	
 }
 
 void ListTotalBalances()
@@ -299,5 +257,5 @@ void ListTotalBalances()
 
 int main()
 {
-
+	clsMainScreen::ShowMainMenu();
 }

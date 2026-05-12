@@ -49,10 +49,13 @@
     <ClInclude Include="clsPerson.h">
       <Filter>Header Files\Project Classes\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="clsScreen.h">
+      <Filter>Header Files\Project Classes\UI</Filter>
+    </ClInclude>
     <ClInclude Include="clsMainScreen.h">
       <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
-    <ClInclude Include="clsScreen.h">
+    <ClInclude Include="clsListClientsScreen.h">
       <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
   </ItemGroup>
