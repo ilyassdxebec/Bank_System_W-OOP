@@ -4,6 +4,7 @@
 #include"clsScreen.h"
 #include"clsInputValidate.h"
 #include"clsDepositScreen.h"
+#include"clsWithDrawScreen.h"
 
 using namespace std;
 
@@ -31,7 +32,7 @@ class clsTransactionsScreen : protected clsScreen
 
 	 static void _ShowWithDrawScreen()
 	 {
-
+		 clsWithDrawScreen::Show();
 	 }
 
 	 static void _ShowTotalBalancesScreen()

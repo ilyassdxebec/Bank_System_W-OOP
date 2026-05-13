@@ -280,6 +280,18 @@ class clsBankClient : public clsPerson
 		return true;
 	}
 
+	bool WithDraw(const float &Amount)
+	{
+
+		if (Amount > _AccBalance || Amount < 0)
+			return false;
+
+		_AccBalance -= Amount;
+		Save();
+
+		return true;
+	}
+
 	bool Delete()
 	{
 
