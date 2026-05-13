@@ -268,6 +268,18 @@ class clsBankClient : public clsPerson
 		return TotalBalances;
 	}
 
+	bool Deposit(const float &Amount)
+	{
+
+		if (Amount < 0)
+			return false;
+
+		_AccBalance += Amount;
+		Save();
+		
+		return true;
+	}
+
 	bool Delete()
 	{
 

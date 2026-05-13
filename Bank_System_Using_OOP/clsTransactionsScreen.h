@@ -2,10 +2,12 @@
 
 #include<iostream>
 #include"clsScreen.h"
+#include"clsInputValidate.h"
+#include"clsDepositScreen.h"
 
 using namespace std;
 
-class clsTransactionsScreen : clsScreen
+class clsTransactionsScreen : protected clsScreen
 {
 
  private:
@@ -24,7 +26,7 @@ class clsTransactionsScreen : clsScreen
 
 	 static void _ShowDepositScreen()
 	 {
-
+		 clsDepositScreen::Show();
 	 }
 
 	 static void _ShowWithDrawScreen()
