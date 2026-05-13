@@ -228,6 +228,3 @@ DateTime#//#SourceAccount#//#DestinationAccount#//#Amount#//#BalanceAfter
 - The difference between a working design and a scalable one
 
 ---
-
-## Course
-Based on: **OOP As It Should Be — Applications** by Programming Advices
