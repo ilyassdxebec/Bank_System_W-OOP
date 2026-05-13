@@ -77,7 +77,10 @@
       <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
     <ClInclude Include="clsWithDrawScreen.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Project Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="clsTotalBalancesScreen.h">
+      <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

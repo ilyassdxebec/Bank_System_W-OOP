@@ -5,6 +5,7 @@
 #include"clsInputValidate.h"
 #include"clsDepositScreen.h"
 #include"clsWithDrawScreen.h"
+#include"clsTotalBalancesScreen.h"
 
 using namespace std;
 
@@ -37,7 +38,7 @@ class clsTransactionsScreen : protected clsScreen
 
 	 static void _ShowTotalBalancesScreen()
 	 {
-
+		 clsTotalBalancesScreen::Show();
 	 }
 
 	 static short _ReadTransactionsMenuOption()
