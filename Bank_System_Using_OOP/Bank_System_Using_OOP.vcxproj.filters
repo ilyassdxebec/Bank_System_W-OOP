@@ -82,6 +82,9 @@
     <ClInclude Include="clsTotalBalancesScreen.h">
       <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
+    <ClInclude Include="clsManageUsersScreen.h">
+      <Filter>Header Files\Project Classes\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Clients.txt" />
