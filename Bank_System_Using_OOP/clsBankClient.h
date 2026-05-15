@@ -14,7 +14,7 @@ class clsBankClient : public clsPerson
 
  private:
 
-	enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
+	enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };  
 
 	string _AccNumber;
 	string _PinCode;
@@ -31,7 +31,7 @@ class clsBankClient : public clsPerson
 		return clsBankClient(enMode::UpdateMode, vWords.at(0), vWords.at(1), vWords.at(2), vWords.at(3), vWords.at(4), vWords.at(5), stod(vWords.at(6)));
 	}
 
-	static vector <clsBankClient> _LoadClientsDataFromFile(const string& FileName)
+	static vector <clsBankClient> _LoadClientsDataFromFile(const string& FileName)	
 	{
 		fstream MyFile;
 		vector <clsBankClient> vClients;

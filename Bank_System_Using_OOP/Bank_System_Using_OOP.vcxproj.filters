@@ -85,8 +85,12 @@
     <ClInclude Include="clsManageUsersScreen.h">
       <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
+    <ClInclude Include="clsUser.h">
+      <Filter>Header Files\Project Classes\Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Clients.txt" />
+    <Text Include="Users.txt" />
   </ItemGroup>
 </Project>
