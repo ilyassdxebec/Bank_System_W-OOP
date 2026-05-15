@@ -3,6 +3,7 @@
 #include<iostream>
 #include"clsScreen.h"
 #include"clsInputValidate.h"
+#include"clsListUsersScreen.h"
 
 
 using namespace std;
@@ -27,7 +28,7 @@ class clsManageUsersScreen : protected clsScreen
 
 	 static void _ShowListUsersScreen()
 	 {
-
+		 clsListUsersScreen::Show();
 	 }
 
 	 static void _ShowAddNewUserScreen()

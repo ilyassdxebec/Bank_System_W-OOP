@@ -259,6 +259,11 @@ class clsUser : public clsPerson
 		 return _LoadUsersDataFromFile("Users.txt");
 	 }
 
+	 bool IsMarkedForDelete() const
+	 {
+		 return _MarkForDelete;
+	 }
+
 	 bool Delete()
 	 {
 
