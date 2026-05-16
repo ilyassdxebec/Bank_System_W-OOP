@@ -48,6 +48,7 @@ class clsLoginScreen : protected clsScreen
 
  public:
 
+
 	 static void Show()
 	 {
        

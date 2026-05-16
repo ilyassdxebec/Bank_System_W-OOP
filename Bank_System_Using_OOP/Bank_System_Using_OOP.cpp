@@ -11,5 +11,10 @@ using namespace std;
 
 int main()
 {
-	clsLoginScreen::Show();
+	
+	while (true)
+	{
+
+		clsLoginScreen::Show();
+	}
 }
