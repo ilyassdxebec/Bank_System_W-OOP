@@ -97,6 +97,12 @@
     <ClInclude Include="clsDeleteUserScreen.h">
       <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
+    <ClInclude Include="clsUpdateUserScreen.h">
+      <Filter>Header Files\Project Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="clsFindUserScreen.h">
+      <Filter>Header Files\Project Classes\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Clients.txt" />
