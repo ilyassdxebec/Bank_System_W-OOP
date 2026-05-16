@@ -4,11 +4,12 @@
 #include"clsInputValidate.h"
 #include"clsMainScreen.h"
 #include"clsUtil.h"
+#include"clsLoginScreen.h"
 
 using namespace std;
 
 
 int main()
 {
-	clsMainScreen::ShowMainMenu();
+	clsLoginScreen::Show();
 }
