@@ -74,6 +74,10 @@ class clsUpdateClientScreen : protected clsScreen
 	 static void Show()
 	 {
 
+
+		 if (!_ShowIsFeatureAvailable(clsUser::enMainMenuPermissions::pUpdateClient))
+			 return;
+
 		 _ShowScreenHeader("+++ Update Client Screen +++");
 
 		 string AccNumber;

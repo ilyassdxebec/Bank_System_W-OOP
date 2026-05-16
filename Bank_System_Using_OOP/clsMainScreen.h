@@ -45,45 +45,52 @@ class clsMainScreen : protected clsScreen
 	 }
 
 	 static void _ShowAllClientsScreen()
-	 {
-
+	 { 
 		 clsListClientsScreen::Show();
 	 }
+
 
 	 static void _ShowAddNewClientScreen()
 	 {
 		 clsAddNewClientScreen::Show();
 	 }
 
+
 	 static void _ShowDeleteClientScreen()
 	 {
 		 clsDeleteClientScreen::Show();
 	 }
+
 
 	 static void _ShowUpdateClientScreen()
 	 {
 		 clsUpdateClientScreen::Show();
 	 }
 
+
 	 static void _ShowFindClientScreen()
 	 {
 		 clsFindClientScreen::Show();
 	 }
+
 
 	 static void _ShowTransactionsMenu()
 	 {
 		 clsTransactionsScreen::ShowTransactionsMenu();
 	 }
 
+
 	 static void _ShowManageUsersMenu()
 	 {
 		 clsManageUsersScreen::ShowManageUsersMenu();
 	 }
 
+
 	 static void _Logout()
 	 {
 		 CurrentUser = clsUser::Find("", "");
 	 }
+
 
 	 static void _ManageMainMenuOption(const enMenuChoice &Choice)
 	 {

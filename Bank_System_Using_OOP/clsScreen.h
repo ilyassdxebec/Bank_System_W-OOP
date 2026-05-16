@@ -1,6 +1,7 @@
 #pragma once
 
 #include<iostream>
+#include"Global.h"
 
 using namespace std;
 
@@ -22,6 +23,24 @@ class clsScreen
 
 		 cout << "============================================\n\n";
 
+	 }
+
+	 static bool _ShowIsFeatureAvailable(const short& FeatureNumber)
+	 {
+
+		 if (!CurrentUser.IsFeatureAvailable(FeatureNumber))
+		 {
+
+			 cout << "=========================================\n";
+			 cout << "Access Denied,\n";
+			 cout << "You Don't have permission to do this,\n";
+			 cout << "Please Contact your admin!\n";
+			 cout << "=========================================\n";
+
+			 return false;
+		 }
+
+		 return true;
 	 }
 };
 

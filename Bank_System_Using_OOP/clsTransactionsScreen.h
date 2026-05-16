@@ -93,6 +93,11 @@ class clsTransactionsScreen : protected clsScreen
 	 static void ShowTransactionsMenu()
 	 {
 
+
+		 if (!_ShowIsFeatureAvailable(clsUser::enMainMenuPermissions::pTransactions))
+			 return;
+
+
 		 system("cls");
 
 		 _ShowScreenHeader("+++ Transactions Menu +++");

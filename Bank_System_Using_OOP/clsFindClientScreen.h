@@ -35,6 +35,10 @@ class clsFindClientScreen : protected clsScreen
 	 static void Show()
 	 {
 
+
+		 if (!_ShowIsFeatureAvailable(clsUser::enMainMenuPermissions::pFindClient))
+			 return;
+
 		 _ShowScreenHeader("+++ Find Client Screen +++");
 
 		 string AccNumber;

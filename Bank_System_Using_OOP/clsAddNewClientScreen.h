@@ -60,6 +60,10 @@ class clsAddNewClientScreen : protected clsScreen
 	 static void Show()
 	 {
 
+
+		 if (!_ShowIsFeatureAvailable(clsUser::enMainMenuPermissions::pAddNewClient))
+			 return;
+
 		 _ShowScreenHeader("+++ Add New Client Screen+++");
 
 		 string AccNumber;

@@ -30,6 +30,10 @@ class clsListClientsScreen : protected clsScreen
 	 static void Show()
 	 {
 
+
+		 if (!_ShowIsFeatureAvailable(clsUser::enMainMenuPermissions::pListClients))
+			 return;
+
 		 vector <clsBankClient> vClients;
 		 vClients = clsBankClient::GetClientsList();
 

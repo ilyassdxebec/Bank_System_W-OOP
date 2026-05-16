@@ -120,6 +120,10 @@ class clsManageUsersScreen : protected clsScreen
 	 static void ShowManageUsersMenu()
 	 {
 
+
+		 if (!_ShowIsFeatureAvailable(clsUser::enMainMenuPermissions::pManageUsers))
+
+			 return;
 		 system("cls");
 
 		 _ShowScreenHeader("+++ Manage Users Menu +++");

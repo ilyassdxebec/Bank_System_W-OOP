@@ -53,6 +53,10 @@ class clsDeleteClientScreen : protected clsScreen
 	 static void Show()
 	 {
 
+
+		 if (!_ShowIsFeatureAvailable(clsUser::enMainMenuPermissions::pDeleteClient))
+			 return;
+
 		 _ShowScreenHeader("+++ Delete Client Screen +++");
 
 		 string AccNumber;

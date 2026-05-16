@@ -269,6 +269,14 @@ class clsUser : public clsPerson
 		 return _MarkForDelete;
 	 }
 
+	 bool IsFeatureAvailable(const short &FeatureNumber)
+	 {
+		 if (_Permission == -1) return true;
+
+		 return ((FeatureNumber & _Permission) == FeatureNumber);
+
+	 }
+
 	 bool Delete()
 	 {
 
