@@ -92,6 +92,16 @@ class clsUser : public clsPerson
 		 }
 	 }
 
+	 string _PrepareLogInRecordString(const string &delim = "#//#")
+	 {
+		 
+		 string Line = "";
+
+		 Line = clsDate::GetSystemDateTimeString() + delim + _UserName + delim + _Password + delim + to_string(_Permission);
+
+		 return Line;
+	 }
+
 	 static clsUser _GetEmptyUserObject()
 	 {
 		 return clsUser(enMode::EmptyMode, "", "", "", "", "", "", 0);
@@ -339,6 +349,16 @@ class clsUser : public clsPerson
 
 			 }
 		 }
+	 }
+
+	 void RegisterLogIn()
+	 {
+		 
+		 string Line;
+
+		 Line = _PrepareLogInRecordString();
+
+		 _AddLineToFile(Line ,"LoginRegister.txt");
 	 }
 };
 

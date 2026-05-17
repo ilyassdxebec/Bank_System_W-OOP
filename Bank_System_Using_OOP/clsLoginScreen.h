@@ -53,7 +53,11 @@ class clsLoginScreen : protected clsScreen
 
 		 } while (LoginFailed);
 
+
+		 CurrentUser.RegisterLogIn();
+
 		 clsMainScreen::ShowMainMenu();
+
 		 return true;
 	 }
 

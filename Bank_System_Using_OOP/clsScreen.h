@@ -27,7 +27,7 @@ class clsScreen
 		 cout << "\nCurrent User : " << CurrentUser.UserName() << endl;
 		 cout << "Current Date : " << clsDate::DateToString(clsDate());
 
-		 cout << "============================================\n\n\n";
+		 cout << "\n============================================\n\n\n";
 
 	 }
 
