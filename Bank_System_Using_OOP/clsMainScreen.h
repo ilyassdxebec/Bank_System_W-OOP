@@ -10,6 +10,7 @@
 #include"clsFindClientScreen.h"
 #include"clsTransactionsScreen.h"
 #include"clsManageUsersScreen.h"
+#include"clsLoginRegisterScreen.h"
 #include"Global.h"
 
 using namespace std;
@@ -19,7 +20,7 @@ class clsMainScreen : protected clsScreen
 
  private:
 
-	 enum enMenuChoice { eShow = 1, eAdd = 2, eDelete = 3, eUpdate = 4, eFind = 5, eTransactions = 6, eManageUsers = 7, eLogout = 8 };
+	 enum enMenuChoice { eShow = 1, eAdd = 2, eDelete = 3, eUpdate = 4, eFind = 5, eTransactions = 6, eManageUsers = 7, eLoginRegister = 8, eLogout = 9 };
 
 
 	 static short _ReadMainMenuOption()
@@ -27,9 +28,9 @@ class clsMainScreen : protected clsScreen
 
 		 short Choice;
 
-		 cout << "\nChoose what do you want to do ? [1-8] : ";
+		 cout << "\nChoose what do you want to do ? [1-9] : ";
 
-		 Choice = clsInputValidate::ReadShortNumberBetween(1, 8);
+		 Choice = clsInputValidate::ReadShortNumberBetween(1, 9);
 
 		 return Choice;
 	 }
@@ -85,6 +86,10 @@ class clsMainScreen : protected clsScreen
 		 clsManageUsersScreen::ShowManageUsersMenu();
 	 }
 
+	 static void _ShowLoginRegisterScreen()
+	 {
+		 clsLoginRegisterScreen::Show();
+	 }
 
 	 static void _Logout()
 	 {
@@ -146,6 +151,13 @@ class clsMainScreen : protected clsScreen
 			  _ShowManageUsersMenu();
 			  _GoBackToMainMenu();
 			  break;
+          
+		  case eLoginRegister:
+
+			  system("cls");
+			  _ShowLoginRegisterScreen();
+			  _GoBackToMainMenu();
+			  break;
 
 		  case eLogout:
 
@@ -174,7 +186,8 @@ class clsMainScreen : protected clsScreen
 		 cout << "       [5] Find Client Info." << endl;
 		 cout << "       [6] TransactionsMenu." << endl;
 		 cout << "       [7] Manage Users." << endl;
-		 cout << "       [8] Logout." << endl;
+		 cout << "       [8] Login Register." << endl;
+		 cout << "       [9] Logout." << endl;
 		 cout << "============================================" << endl;
 
 		 _ManageMainMenuOption((enMenuChoice)_ReadMainMenuOption());

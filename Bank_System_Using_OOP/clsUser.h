@@ -14,7 +14,9 @@ class clsUser : public clsPerson
  
  private:
 
-	 enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
+     enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
+
+	 struct stLogin;
 
 	 string _UserName;
 	 string _Password;
@@ -145,11 +147,49 @@ class clsUser : public clsPerson
 	 }
 
 
+	 static stLogin _ConvertLineToRegisterLoginRecord(const string& Line, string delim = "#//#")
+	 {
+
+		 vector <string> vWords;
+		 vWords = clsString::Split(Line, delim);
+
+		 stLogin Login;
+
+		 Login.Date = vWords.at(0);
+		 Login.UserName = vWords.at(1);
+		 Login.Password = vWords.at(2);
+		 Login.Permission = (short)stoi(vWords.at(3));
+
+		 return Login;
+	 }
+
+	 static vector <stLogin> _LoadLoginRegisterDataFromFile(const string& FileName)
+	 {
+		 fstream MyFile;
+		 vector <stLogin> vLogins;
+
+		 MyFile.open(FileName, ios::in);
+
+		 if (MyFile.is_open())
+		 {
+			 string Line;
+
+			 while (getline(MyFile, Line))
+			 {
+				 vLogins.push_back(_ConvertLineToRegisterLoginRecord(Line));
+			 }
+
+			 MyFile.close();
+		 }
+
+		 return vLogins;
+	 }
+
  public:
 
 	 enum enMainMenuPermissions {
 		 pAll = -1, pListClients = 1, pAddNewClient = 2, pDeleteClient = 4,
-		 pUpdateClient = 8, pFindClient = 16, pTransactions = 32, pManageUsers = 64
+		 pUpdateClient = 8, pFindClient = 16, pTransactions = 32, pManageUsers = 64 ,pLoginRegister = 128
 	 };
 
 	 clsUser(const enMode &Mode ,const string &FirstName ,const string &LastName ,const string &PhoneNumber ,const string &Email ,const string &UserName ,
@@ -273,7 +313,7 @@ class clsUser : public clsPerson
 	 {
 		 return _LoadUsersDataFromFile("Users.txt");
 	 }
-
+ 
 	 bool IsMarkedForDelete() const
 	 {
 		 return _MarkForDelete;
@@ -359,6 +399,19 @@ class clsUser : public clsPerson
 		 Line = _PrepareLogInRecordString();
 
 		 _AddLineToFile(Line ,"LoginRegister.txt");
+	 }
+
+	 struct stLogin
+	 {
+		 string Date;
+		 string UserName;
+		 string Password;
+		 short Permission;
+	 };
+
+	 static vector <stLogin> GetLoginRegisterList()
+	 {
+		 return _LoadLoginRegisterDataFromFile("LoginRegister.txt");
 	 }
 };
 
