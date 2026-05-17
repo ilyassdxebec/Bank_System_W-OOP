@@ -15,6 +15,9 @@ int main()
 	while (true)
 	{
       
-		clsLoginScreen::Show();
+		if (clsLoginScreen::Show() == false)
+		{
+			break;
+		}
     }
 }

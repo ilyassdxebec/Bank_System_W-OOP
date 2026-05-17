@@ -2,6 +2,7 @@
 
 #include<iostream>
 #include"Global.h"
+#include"clsDate.h"
 
 using namespace std;
 
@@ -18,10 +19,15 @@ class clsScreen
 		 
 		 if (SubTitle != "")
 		 {
-			 cout << "\n         " << SubTitle << endl;
+			 cout << "\n         " << SubTitle << "\n";
 		 }
 
-		 cout << "============================================\n\n";
+		 cout << "============================================" << endl;
+
+		 cout << "\nCurrent User : " << CurrentUser.UserName() << endl;
+		 cout << "Current Date : " << clsDate::DateToString(clsDate());
+
+		 cout << "============================================\n\n\n";
 
 	 }
 
