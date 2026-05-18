@@ -1,5 +1,5 @@
 # Bank Management System
-A console-based banking application built in C++ demonstrating core Object-Oriented Programming principles including inheritance, encapsulation, abstraction, and design patterns — with authentication, role-based permissions, encrypted passwords, transfer logging, and more.
+A console-based banking application built in C++ demonstrating core Object-Oriented Programming principles including inheritance, encapsulation, abstraction, and design patterns — with authentication, role-based permissions, encrypted passwords, transfer logging, and full audit trails.
 
 ---
 
@@ -15,6 +15,8 @@ This project simulates a real-world bank management system where authenticated u
 - **Polymorphism** — Virtual functions and abstract classes (Extension 10)
 - **Static vs Instance Methods** — Static factory methods, finders, and utility functions alongside instance methods
 - **Object State Management** — `enMode` pattern (EmptyMode, UpdateMode, AddNewMode, DeleteMode)
+- **Const Correctness** — All read-only methods and parameters marked `const`
+- **Defensive Programming** — Two-layer validation at both screen and model level
 
 ---
 
@@ -25,7 +27,7 @@ clsPerson                        (base person data)
     ├── clsBankClient            (client data + business logic + file I/O)
     └── clsUser                  (system user + permissions + authentication)
 
-clsScreen                        (base screen utilities)
+clsScreen                        (base screen utilities + permission checker)
     ├── clsLoginScreen
     ├── clsMainScreen
     ├── clsListClientsScreen
@@ -48,7 +50,10 @@ clsScreen                        (base screen utilities)
     └── clsLoginRegisterScreen
 
 clsInputValidate                 (input validation utilities)
-clsString                        (string utilities)
+clsString                        (string utilities + encryption)
+clsDate                          (date/time utilities)
+clsUtil                          (number to string utilities)
+Global.h                         (global state: CurrentUser)
 ```
 
 ---
@@ -59,36 +64,42 @@ clsString                        (string utilities)
 - Login screen with credential validation
 - Lock system after 3 failed login attempts
 - Logout with automatic return to login screen
-- Logged-in user and current date displayed on all screens
+- Login attempts tracked as local variable — resets each session
 
 ### Client Management (CRUD)
 - List all clients in a formatted table with total count
-- Add new client with duplicate account number protection
+- Add new client with duplicate account number protection (two-layer check)
 - Delete client with confirmation prompt
-- Update client information
+- Update client information with confirmation prompt
 - Find client by account number
 
 ### Transactions
-- **Deposit** — Add funds with negative amount validation
-- **Withdraw** — Remove funds with insufficient balance protection
-- **Transfer** — Transfer funds between two accounts with transfer log
-- **Total Balances** — Display sum of all account balances
+- **Deposit** — Add funds with negative amount validation at both screen and model level
+- **Withdraw** — Remove funds with insufficient balance protection at both layers
+- **Transfer** — Transfer funds between accounts with automatic transfer log registration
+- **Total Balances** — Display all account balances with grand total and number in words
 
 ### User Management (CRUD)
 - Full CRUD operations for system users
-- Role-based permissions per user
-- Restrict access to specific menu options based on user permissions
+- Username-based identification
+- Permission assignment per user using bitwise operations
+
+### Role-Based Permissions
+- Bitwise permission system — each permission is a power of 2
+- Permissions stored as a single integer — OR to combine, AND to check
+- Admin flag (`pAll = -1`) grants all permissions automatically
+- Permissions: List Clients, Add Client, Delete Client, Update Client, Find Client, Transactions, Manage Users, Login Register
 
 ### Logging & Audit
-- Login register — logs every login attempt with timestamp and username
-- Transfer log — records every transfer with source, destination, amount and date
-- View login register screen
-- View transfers log screen
+- **Login Register** — logs every successful login with date, username, password, permission level
+- **Transfer Log** — records every transfer with date, source account, destination account, amount, balances after transfer, and performing user
+- Dedicated screen to view login register
+- Dedicated screen to view transfer log
 
 ### Security
-- Passwords encrypted in file storage
-- Permission to view login register controlled per user
-- System lockout after failed login attempts
+- Passwords encrypted in `Users.txt` file storage
+- Permission to view login register controlled per user (`pLoginRegister = 128`)
+- System lockout after 3 failed login attempts
 
 ---
 
@@ -111,19 +122,18 @@ clsString                        (string utilities)
 
 ## Design Patterns Used
 
-### Mode Pattern
+### Mode Pattern (Active Record)
 Objects carry their own state via `enMode` enum:
 ```cpp
 enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2, DeleteMode = 3 };
 ```
-`Save()` routes behavior based on current mode — no need for separate add/update/delete methods at the caller level.
+`Save()` routes behavior based on current mode — no need for separate add/update/delete methods at the caller level. Object transitions from `AddNewMode` to `UpdateMode` after first save.
 
 ### Screen Architecture
 Every screen is a class inheriting from `clsScreen`:
 ```cpp
 class clsAddNewClientScreen : protected clsScreen
 {
-    // private helpers
     static void _ReadClientData(clsBankClient& Client);
     static void _PrintClient(const clsBankClient& Client);
 public:
@@ -132,25 +142,60 @@ public:
 ```
 
 ### Factory Methods
-Objects are created through static factory methods rather than direct construction:
+Objects created through static factory methods:
 ```cpp
 clsBankClient::GetAddNewClientObject(AccNumber);
 clsBankClient::Find(AccNumber);
-clsUser::Find(Username, Password);
+clsUser::Find(UserName, Password);
+```
+
+### Bitwise Permission System
+```cpp
+// Building permissions with OR
+Permission = (pListClients | Permission);   // turn bit on
+Permission = (pDeleteClient | Permission);  // turn another bit on
+
+// Checking permissions with AND
+(FeatureNumber & Permission) == FeatureNumber  // is this bit on?
+
+// Admin shortcut
+pAll = -1  // 11111111 — every bit on, always passes any check
 ```
 
 ### Defensive Programming (Two-Layer Validation)
 - **Screen layer** — blocks invalid input before reaching the model (UX)
-- **Model layer** — protects data integrity regardless of caller (safety)
+- **Model layer** — protects data integrity regardless of who calls it (safety)
+
+```cpp
+// Screen blocks negative deposit for UX
+while (Amount < 0) { ... }
+
+// Model also blocks it defensively
+bool Deposit(const float &Amount) {
+    if (Amount < 0) return false;
+    ...
+}
+```
+
+### Centralized Navigation with Permission Wrappers
+Private wrapper methods in `clsMainScreen` serve as the permission gate:
+```cpp
+static void _ShowDeleteClientScreen()
+{
+    if (!_ShowIsFeatureAvailable(clsUser::pDeleteClient))
+        return;
+    clsDeleteClientScreen::Show();
+}
+```
 
 ---
 
 ## File Structure
 ```
-Clients.txt           — client records (delimited by #//#)
-Users.txt             — system user records with encrypted passwords
-LoginLog.txt          — login audit trail
-TransferLog.txt       — transfer records
+Clients.txt              — client records
+Users.txt                — system user records with encrypted passwords
+LoginRegister.txt        — login audit trail
+TransferLogRegister.txt  — transfer records
 ```
 
 ### Record Format (Clients.txt)
@@ -160,17 +205,17 @@ FirstName#//#LastName#//#PhoneNumber#//#Email#//#AccNumber#//#PinCode#//#Balance
 
 ### Record Format (Users.txt)
 ```
-FirstName#//#LastName#//#PhoneNumber#//#Email#//#Username#//#EncryptedPassword#//#Permissions
+FirstName#//#LastName#//#PhoneNumber#//#Email#//#UserName#//#EncryptedPassword#//#Permissions
 ```
 
-### Record Format (LoginLog.txt)
+### Record Format (LoginRegister.txt)
 ```
-DateTime#//#Username#//#Password#//#Status
+DateTime#//#UserName#//#Password#//#Permission
 ```
 
-### Record Format (TransferLog.txt)
+### Record Format (TransferLogRegister.txt)
 ```
-DateTime#//#SourceAccount#//#DestinationAccount#//#Amount#//#BalanceAfter
+DateTime#//#SenderAccNum#//#ReceiverAccNum#//#Amount#//#SenderBalanceAfter#//#ReceiverBalanceAfter#//#UserName
 ```
 
 ---
@@ -178,28 +223,37 @@ DateTime#//#SourceAccount#//#DestinationAccount#//#Amount#//#BalanceAfter
 ## Key Classes
 
 ### `clsBankClient`
-- Inherits from `clsPerson`
-- Manages all client data and file persistence
-- Key methods: `Find()`, `Save()`, `Delete()`, `Deposit()`, `WithDraw()`, `Transfer()`, `GetClientsList()`, `GetTotalBalances()`
+Inherits from `clsPerson`. Manages all client data, file persistence, and banking operations.
+Key methods: `Find()`, `Save()`, `Delete()`, `Deposit()`, `WithDraw()`, `Transfer()`, `GetClientsList()`, `GetTotalBalances()`, `GetTransferLogsList()`
 
 ### `clsUser`
-- Inherits from `clsPerson`
-- Manages system users and permissions
-- Handles authentication via `Find(Username, Password)`
-- Tracks failed login attempts
+Inherits from `clsPerson`. Manages system users, permissions, and authentication.
+Key methods: `Find()`, `Save()`, `Delete()`, `IsFeatureAvailable()`, `RegisterLogIn()`, `GetLoginRegisterList()`
 
 ### `clsScreen`
-- Base class for all screens
-- Provides shared UI utilities: `_ShowScreenHeader(Title, SubTitle)`
-- Displays logged-in user and current date on all screens
+Base class for all screens. Provides shared UI utilities and permission checking.
+Key methods: `_ShowScreenHeader()`, `_ShowIsFeatureAvailable()`
 
 ### `clsInputValidate`
-- Static utility class for all input validation
-- Methods: `ReadString()`, `ReadFloatNumber()`, `ReadDblNumber()`, `ReadShortNumberBetween()`, etc.
+Static utility class for all input validation.
+Key methods: `ReadString()`, `ReadFloatNumber()`, `ReadShortNumberBetween()`
 
 ### `clsString`
-- Static string utility class
-- Methods: `Split()`, `Encrypt()`, `Decrypt()`, etc.
+Static string utility class.
+Key methods: `Split()`, `Encrypt()`, `Decrypt()`
+
+### `clsDate`
+Date and time utility class.
+Key methods: `GetSystemDateTimeString()`
+
+---
+
+## Global State
+```cpp
+// Global.h
+clsUser CurrentUser = clsUser::Find("", "");  // tracks logged-in user
+```
+Only `CurrentUser` is global — accessible by all screens for permission checking and audit logging. Login attempt counter is kept local to `_Login()` — resets automatically each session.
 
 ---
 
@@ -207,25 +261,28 @@ DateTime#//#SourceAccount#//#DestinationAccount#//#Amount#//#BalanceAfter
 1. Clone or download the project
 2. Open in Visual Studio (Windows)
 3. Build and run
-4. Login with default credentials from `Users.txt`
+4. Login with credentials from `Users.txt`
+5. Admin account has full permissions (`Permission = -1`)
 
-> **Note:** Project uses `__declspec(property)` which is MSVC-specific. Compile with Visual Studio on Windows.
+> **Note:** Uses MSVC-specific features. Compile with Visual Studio on Windows.
 
 ---
 
 ## What I Learned
-- Designing class hierarchies that scale
+- Designing class hierarchies that scale cleanly
 - Separating UI logic from business logic from data persistence
-- The importance of object state management
+- Object state management with the mode pattern
 - Defensive programming at multiple layers
+- Bitwise operations for compact permission storage
 - Authentication and basic security concepts
 - File-based audit logging
 - Password encryption
 - Role-based access control
-- Abstract classes and interfaces in C++
+- The difference between global and local variable scope
+- Circular reference and how to avoid it
+- Const correctness and why it matters
 - When to apply design patterns and when to keep it simple
-- `const` correctness and why it matters
-- The difference between a working design and a scalable one
+- Active Record pattern vs layered architecture tradeoffs
 
 ---
 
