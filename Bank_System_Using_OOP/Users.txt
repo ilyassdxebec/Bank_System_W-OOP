@@ -2,4 +2,4 @@ John#//#Doe#//#123456789#//#john@gmail.com#//#johnd#//#1234#//#-1
 Mike#//#Brown#//#555666777#//#mike@gmail.com#//#mikeb#//#mike2026#//#-1
 Muhammed#//#Abu Hadhoud#//#063453443#//#Muhammed_Abu_Hadhoud@gmail.com#//#Admin#//#3333#//#-1
 J#//#Cole#//#423232#//#JermaineCole@gmail.com#//#User1#//#0000#//#-1
-Kendrick#//#Lamar#//#23234233#//#K.Dot@gmail.com#//#K#//#3223#//#0
+Kendrick#//#Lamar#//#423423432#//#KDOT@gmail.com#//#K#//#3223#//#255
