@@ -162,6 +162,7 @@
   <ItemGroup>
     <Text Include="Clients.txt" />
     <Text Include="LoginRegister.txt" />
+    <Text Include="TransferLogRegister.txt" />
     <Text Include="Users.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

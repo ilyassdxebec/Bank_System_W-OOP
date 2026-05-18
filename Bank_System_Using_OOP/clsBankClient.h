@@ -6,6 +6,8 @@
 #include<fstream>
 #include"clsString.h"
 #include"clsPerson.h"
+#include"clsDate.h"
+#include"Global.h"
 
 using namespace std;
 
@@ -131,6 +133,27 @@ class clsBankClient : public clsPerson
 		}
 
 		MyFile.close();
+	}
+
+	string _PrepareTransferLogRecordString( const clsBankClient& Sender, const clsBankClient& Receiver, const float& Amount ,const string& delim = "#//#")
+	{
+
+		string Line = "";
+
+		Line = clsDate::GetSystemDateTimeString() + delim + Sender.AccNumber() + delim + Receiver.AccNumber() + delim + to_string(Amount)
+			+ delim + to_string(Sender.AccBalance()) + delim + to_string(Receiver.AccBalance()) + delim +CurrentUser.UserName();
+
+		return Line;
+	}
+
+	void _RegisterTransferLog(const clsBankClient& Receiver, const float& Amount)
+	{
+
+		string Line;
+
+		Line = _PrepareTransferLogRecordString(*this, Receiver, Amount);
+
+		_AddLineToFile(Line, "TransferLogRegister.txt");
 	}
 
  public:
@@ -300,6 +323,8 @@ class clsBankClient : public clsPerson
 		
 		WithDraw(Amount);
 		Receiver.Deposit(Amount);
+
+		_RegisterTransferLog(Receiver ,Amount);
 
 		return true;
 	}
