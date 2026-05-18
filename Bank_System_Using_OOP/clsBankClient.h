@@ -24,6 +24,8 @@ class clsBankClient : public clsPerson
 	float _AccBalance;
 	bool _MarkForDelete = false;
 
+	struct stTransferLog;
+
 	static clsBankClient _ConvertLineToClientObject(const string& Line, string delim = "#//#")
 	{
 
@@ -154,6 +156,47 @@ class clsBankClient : public clsPerson
 		Line = _PrepareTransferLogRecordString(*this, Receiver, Amount);
 
 		_AddLineToFile(Line, "TransferLogRegister.txt");
+	}
+
+	static stTransferLog _ConvertLineToTransferLogRecord(const string& Line, string delim = "#//#")
+	{
+
+		vector <string> vWords;
+		vWords = clsString::Split(Line, delim);
+
+		stTransferLog Logs;
+
+		Logs.Date = vWords.at(0);
+		Logs.SenderAccNum = vWords.at(1);
+		Logs.ReceiverAccNum = vWords.at(2);
+		Logs.TransferAmount = stof(vWords.at(3));
+		Logs.SenderAccBalance = stof(vWords.at(4));
+		Logs.ReceiverAccBalance = stof(vWords.at(5));
+		Logs.CurrentUserName= vWords.at(6);
+
+		return Logs;
+ 	}
+
+	static vector <stTransferLog> _LoadTransferLogsDataFromFile(const string& FileName)
+	{
+		fstream MyFile;
+		vector <stTransferLog> vTransferLogs;
+
+		MyFile.open(FileName, ios::in);
+
+		if (MyFile.is_open())
+		{
+			string Line;
+
+			while (getline(MyFile, Line))
+			{
+				vTransferLogs.push_back(_ConvertLineToTransferLogRecord(Line));
+			}
+
+			MyFile.close();
+		}
+
+		return vTransferLogs;
 	}
 
  public:
@@ -391,5 +434,24 @@ class clsBankClient : public clsPerson
 
 			}
 		}
+	}
+
+	struct stTransferLog
+	{
+
+		string Date;
+		string SenderAccNum;
+		string ReceiverAccNum;
+		string CurrentUserName;
+
+		float TransferAmount;
+		float SenderAccBalance;
+		float ReceiverAccBalance;
+		
+	};
+
+	static vector <stTransferLog> GetTransferLogsList()
+	{
+		return _LoadTransferLogsDataFromFile("TransferLogRegister.txt");
 	}
 };
