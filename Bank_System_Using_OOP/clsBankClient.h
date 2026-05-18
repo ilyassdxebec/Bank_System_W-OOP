@@ -292,6 +292,18 @@ class clsBankClient : public clsPerson
 		return true;
 	}
 
+	bool Transfer(const float &Amount ,clsBankClient &Receiver) 
+	{
+
+		if (Amount > _AccBalance)
+			return false;
+		
+		WithDraw(Amount);
+		Receiver.Deposit(Amount);
+
+		return true;
+	}
+
 	bool Delete()
 	{
 

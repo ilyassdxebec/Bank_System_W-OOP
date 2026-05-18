@@ -74,7 +74,7 @@ class clsTransferScreen : protected clsScreen
 		 while (!clsBankClient::IsClientExist(ReceiverAccNum))
 		 {
 			 cout << "\nClient Doesn't Exist! ,Try Again : ";
-			 SenderAccNum = clsInputValidate::ReadString();
+			 ReceiverAccNum = clsInputValidate::ReadString();
 		 }
 
 		 clsBankClient Receiver = clsBankClient::Find(ReceiverAccNum);
@@ -95,13 +95,18 @@ class clsTransferScreen : protected clsScreen
 		 if (toupper(Choice) == 'Y')
 		 {
 
-			 Sender.WithDraw(TransferAmount);
-			 Receiver.Deposit(TransferAmount);
+			 if (Sender.Transfer(TransferAmount, Receiver))
+			 {
+				 cout << "\nTransfer Done Succeffully !!!";
 
-			 cout << "\nTransfer Done Succeffully !!!";
-
-			 _PrintClientCard(Sender);
-			 _PrintClientCard(Receiver);
+				 _PrintClientCard(Sender);
+				 _PrintClientCard(Receiver);
+			 }
+			 
+			 else
+			 {
+				 cout << "Transfer Failed !!! try again later";
+			 }
 		 }
 
 		 else
