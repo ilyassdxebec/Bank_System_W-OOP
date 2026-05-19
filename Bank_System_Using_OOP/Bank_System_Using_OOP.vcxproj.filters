@@ -121,11 +121,15 @@
     <ClInclude Include="clsInterfaceCommunication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="clsCurrency.h">
+      <Filter>Header Files\Project Classes\Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Clients.txt" />
     <Text Include="Users.txt" />
     <Text Include="LoginRegister.txt" />
     <Text Include="TransferLogRegister.txt" />
+    <Text Include="Currencies.txt" />
   </ItemGroup>
 </Project>
