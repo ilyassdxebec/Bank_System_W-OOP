@@ -118,6 +118,9 @@
     <ClInclude Include="clsTransferLogScreen.h">
       <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
+    <ClInclude Include="clsInterfaceCommunication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Clients.txt" />

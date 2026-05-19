@@ -2,8 +2,9 @@
 
 #include<iostream>
 
+#include"clsInterfaceCommunication.h"
 
-class clsPerson
+class clsPerson : public clsInterfaceCommunication
 {
  
  private:
@@ -67,5 +68,21 @@ class clsPerson
 	 {
 		 _Email = Email;
 	 }
+
+	 void SendEmail(const string& Title, const string& Body)
+	 {
+
+	 }
+
+	 void SendFax(const string &Title, const string& Body)
+	 {
+
+	 }
+
+	 void SendSMS(const string& Title, const string& Body)
+	 {
+
+	 }
+
 };
 
