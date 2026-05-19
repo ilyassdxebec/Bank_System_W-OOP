@@ -137,6 +137,11 @@ class clsCurrency
 		 return _CurrencyName;
 	 }
 
+	 float CurrencyRate() const
+	 {
+		 return _Rate;
+	 }
+
 	 void Update(const float &Rate)
 	 {
 

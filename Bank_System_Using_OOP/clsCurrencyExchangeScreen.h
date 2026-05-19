@@ -4,6 +4,9 @@
 
 #include"clsMainScreen.h"
 #include"clsScreen.h"
+#include"clsListCurrenciesScreen.h"
+
+using namespace std;
 
 class clsCurrencyExchangeScreen : protected clsScreen
 {
@@ -25,22 +28,22 @@ class clsCurrencyExchangeScreen : protected clsScreen
 
 	 static void _ShowListCurrenciesScreen()
 	 {
-		 clsDepositScreen::Show();
+		 clsListCurrenciesScreen::Show();
 	 }
 
 	 static void _ShowFindCurrencyScreen()
 	 {
-		 clsWithDrawScreen::Show();
+		 
 	 }
 
 	 static void _ShowUpdateRateScreen()
 	 {
-		 clsTotalBalancesScreen::Show();
+		 
 	 }
 
 	 static void _ShowCurrencyCalculatorScreen()
 	 {
-		 clsTransferScreen::Show();
+		
 	 }
 
 	 static short _ReadCurrencyExchangeMenuOption()
