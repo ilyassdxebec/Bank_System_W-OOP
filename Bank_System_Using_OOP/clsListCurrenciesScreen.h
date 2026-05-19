@@ -46,7 +46,7 @@ class clsListCurrenciesScreen : protected clsScreen
 			 _ShowScreenHeader(Title, SubTitle);
 
 			 cout << "|______________________________|________________|_____________________________________________|_______________\n";
-			 cout << "| Country Name                 | Currency Code  | Currency Name                               | Currency Rate \n";
+			 cout << "| Country Name                 | Currency Code  | Currency Name                               | Rate/(1$)     \n";
 			 cout << "|______________________________|________________|_____________________________________________|_______________\n";
 
 			 for (const clsCurrency &C : vCurrencies)
