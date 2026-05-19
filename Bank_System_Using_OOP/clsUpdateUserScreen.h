@@ -59,7 +59,7 @@ class clsUpdateUserScreen : protected clsScreen
 		 if (toupper(Choice) == 'Y') Permission = (clsUser::pLoginRegister | Permission);
 
 		 return Permission;
-
+		 
 	 }
 
 	 static void _ReadUserData(clsUser& User)

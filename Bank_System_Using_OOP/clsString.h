@@ -426,6 +426,26 @@ public:
 		return (S == "");
 	}
 
+	static string EncryptString(string S, const short &EncryptionKey = 2) 
+	{
+
+		for (int i = 0; i < S.length(); i++) 
+		{
+			S[i] = char((int) S[i] + EncryptionKey);
+		}
+		return S;
+	}
+
+	static string DecryptString(string S, const short &EncryptionKey = 2)
+	{
+
+		for (int i = 0; i < S.length(); i++)
+		{
+			S[i] = char((int) S[i] - EncryptionKey);
+		}
+		return S;
+	}
+
 	bool isEmpty()
 	{
 		return isEmpty(_Value);

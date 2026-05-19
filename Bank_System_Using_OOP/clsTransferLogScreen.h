@@ -61,7 +61,7 @@ class clsTransferLogScreen : protected clsScreen
 
 		 }
 
-
+		 
 	 }
 };
 

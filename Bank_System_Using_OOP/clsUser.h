@@ -31,7 +31,7 @@ class clsUser : public clsPerson
 		 vector <string> vWords;
 		 vWords = clsString::Split(Line, delim);
 
-		 return clsUser(enMode::UpdateMode, vWords.at(0), vWords.at(1), vWords.at(2), vWords.at(3), vWords.at(4), vWords.at(5), (short)stoi(vWords.at(6)));
+		 return clsUser(enMode::UpdateMode, vWords.at(0), vWords.at(1), vWords.at(2), vWords.at(3), vWords.at(4), clsString::DecryptString(vWords.at(5)), (short)stoi(vWords.at(6)));
 	 }
 
 	 static vector <clsUser> _LoadUsersDataFromFile(const string& FileName)
@@ -66,7 +66,7 @@ class clsUser : public clsPerson
 		 Line += User.PhoneNumber() + delim;
 		 Line += User.Email() + delim;
 		 Line += User.UserName() + delim;
-		 Line += User.Password() + delim;
+		 Line += clsString::EncryptString(User.Password()) + delim;
 		 Line += to_string(User.Permission());
 
 		 return Line;
@@ -99,7 +99,7 @@ class clsUser : public clsPerson
 		 
 		 string Line = "";
 
-		 Line = clsDate::GetSystemDateTimeString() + delim + _UserName + delim + _Password + delim + to_string(_Permission);
+		 Line = clsDate::GetSystemDateTimeString() + delim + _UserName + delim + clsString::EncryptString(_Password ) + delim + to_string(_Permission);
 
 		 return Line;
 	 }
@@ -157,7 +157,7 @@ class clsUser : public clsPerson
 
 		 Login.Date = vWords.at(0);
 		 Login.UserName = vWords.at(1);
-		 Login.Password = vWords.at(2);
+		 Login.Password = clsString::DecryptString(vWords.at(2));
 		 Login.Permission = (short)stoi(vWords.at(3));
 
 		 return Login;
