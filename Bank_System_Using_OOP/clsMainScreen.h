@@ -11,6 +11,7 @@
 #include"clsTransactionsScreen.h"
 #include"clsManageUsersScreen.h"
 #include"clsLoginRegisterScreen.h"
+#include"clsCurrencyExchangeScreen.h"
 #include"Global.h"
 
 using namespace std;
@@ -20,7 +21,8 @@ class clsMainScreen : protected clsScreen
 
  private:
 
-	 enum enMenuChoice { eShow = 1, eAdd = 2, eDelete = 3, eUpdate = 4, eFind = 5, eTransactions = 6, eManageUsers = 7, eLoginRegister = 8, eLogout = 9 };
+	 enum enMenuChoice { eShow = 1, eAdd = 2, eDelete = 3, eUpdate = 4, eFind = 5, eTransactions = 6, eManageUsers = 7, eLoginRegister = 8,
+		                 eCurrencyExchange = 9, eLogout = 10 };
 
 
 	 static short _ReadMainMenuOption()
@@ -28,9 +30,9 @@ class clsMainScreen : protected clsScreen
 
 		 short Choice;
 
-		 cout << "\nChoose what do you want to do ? [1-9] : ";
+		 cout << "\nChoose what do you want to do ? [1-10] : ";
 
-		 Choice = clsInputValidate::ReadShortNumberBetween(1, 9);
+		 Choice = clsInputValidate::ReadShortNumberBetween(1, 10);
 
 		 return Choice;
 	 }
@@ -89,6 +91,11 @@ class clsMainScreen : protected clsScreen
 	 static void _ShowLoginRegisterScreen()
 	 {
 		 clsLoginRegisterScreen::Show();
+	 }
+
+	 static void _ShowCurrencyExchangeMenu()
+	 {
+		 clsCurrencyExchangeScreen::ShowCurrencyExchangeMenu();
 	 }
 
 	 static void _Logout()
@@ -159,6 +166,14 @@ class clsMainScreen : protected clsScreen
 			  _GoBackToMainMenu();
 			  break;
 
+		  case eCurrencyExchange:
+
+			  system("cls");
+			  _ShowCurrencyExchangeMenu();
+			  _GoBackToMainMenu();
+			  break;
+
+
 		  case eLogout:
 
 			  system("cls");
@@ -187,7 +202,8 @@ class clsMainScreen : protected clsScreen
 		 cout << "       [6] TransactionsMenu." << endl;
 		 cout << "       [7] Manage Users." << endl;
 		 cout << "       [8] Login Register." << endl;
-		 cout << "       [9] Logout." << endl;
+		 cout << "       [9] Currency Exchange." << endl;
+		 cout << "       [10] Logout." << endl;
 		 cout << "============================================" << endl;
 
 		 _ManageMainMenuOption((enMenuChoice)_ReadMainMenuOption());
