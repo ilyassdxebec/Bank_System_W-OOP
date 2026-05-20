@@ -142,10 +142,10 @@ class clsCurrency
 		 return _Rate;
 	 }
 
-	 void Update(const float &Rate)
+	 void Update(const float &NewRate)
 	 {
 
-		 _Rate = Rate;
+		 _Rate = NewRate;
 		 _Update();
 	 }
 
