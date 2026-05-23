@@ -1,10 +1,10 @@
 # 🏦 Bank Management System
-A console-based banking application built in C++ demonstrating core Object-Oriented Programming principles — inheritance, encapsulation, abstraction, polymorphism, interfaces, and design patterns — with authentication, role-based permissions, encrypted passwords, transfer logging, and full audit trails.
+A console-based banking application built in C++ demonstrating core Object-Oriented Programming principles — inheritance, encapsulation, abstraction, polymorphism, interfaces, and design patterns — with authentication, role-based permissions, encrypted passwords, transfer logging, full audit trails, and a currency exchange module with live rate management and calculator.
 
 ---
 
 ## 📋 Project Overview
-This project simulates a real-world bank management system where authenticated users manage clients, perform transactions, manage system users, and operate under role-based permissions — all backed by file-based persistence with encrypted passwords and full audit logging.
+This project simulates a real-world bank management system where authenticated users manage clients, perform transactions, manage system users, exchange currencies, and operate under role-based permissions — all backed by file-based persistence with encrypted passwords and full audit logging.
 
 ---
 
@@ -50,6 +50,11 @@ clsScreen                        (base screen utilities + permission checker)
     │       ├── clsDeleteUserScreen
     │       ├── clsUpdateUserScreen
     │       └── clsFindUserScreen
+    ├── clsCurrencyExchangeScreen
+    │       ├── clsListCurrenciesScreen
+    │       ├── clsFindCurrencyScreen
+    │       ├── clsUpdateCurrencyScreen
+    │       └── clsCurrencyCalculatorScreen
     └── clsLoginRegisterScreen
 
 clsInputValidate                 (input validation utilities)
@@ -82,6 +87,13 @@ Global.h                         (global state: CurrentUser)
 - **Transfer** — Transfer funds between accounts with automatic transfer log registration
 - **Total Balances** — Display all account balances with grand total and number in words
 
+### 💱 Currency Exchange
+- **List Currencies** — Display all supported currencies in a formatted table
+- **Find Currency** — Look up a currency by code
+- **Update Rate** — Modify exchange rates with confirmation
+- **Currency Calculator** — Convert any amount between two currencies using live rates
+- Permission-controlled access via `pCurrencyExchange` flag
+
 ### 👤 User Management (CRUD)
 - Full CRUD operations for system users
 - Username-based identification
@@ -91,7 +103,7 @@ Global.h                         (global state: CurrentUser)
 - Bitwise permission system — each permission is a power of 2
 - Permissions stored as a single integer — OR to combine, AND to check
 - Admin flag (`pAll = -1`) grants all permissions automatically
-- Permissions: List Clients, Add Client, Delete Client, Update Client, Find Client, Transactions, Manage Users, Login Register
+- Permissions: List Clients, Add Client, Delete Client, Update Client, Find Client, Transactions, Manage Users, Login Register, Currency Exchange
 
 ### 📝 Logging & Audit
 - **Login Register** — logs every successful login with date, username, encrypted password, permission level
@@ -127,6 +139,8 @@ Global.h                         (global state: CurrentUser)
 | 08 | Show transfers log screen | ✅ |
 | 09 | Encrypt passwords in file | ✅ |
 | 10 | Abstract class / interface practical example | ✅ |
+| 11 | Currency exchange menu with list, find, update rate | ✅ |
+| 12 | Currency calculator — convert amounts between currencies | ✅ |
 
 ---
 
@@ -151,6 +165,19 @@ public:
 };
 ```
 
+The currency exchange screen follows the same pattern with its own sub-menu:
+```cpp
+class clsCurrencyExchangeScreen : protected clsScreen
+{
+    enum enCurrencyExchangeMenu {
+        eListCurrencies = 1, eFindCurrency = 2,
+        eUpdateRate = 3, eCurrencyCalculator = 4, eReturnMainMenu = 5
+    };
+public:
+    static void ShowCurrencyExchangeMenu();
+};
+```
+
 ### Factory Methods
 ```cpp
 clsBankClient::GetAddNewClientObject(AccNumber);
@@ -163,6 +190,7 @@ clsUser::Find(UserName, Password);
 // OR to build permissions
 Permission = (pListClients | Permission);
 Permission = (pDeleteClient | Permission);
+Permission = (pCurrencyExchange | Permission);
 
 // AND to check
 (FeatureNumber & Permission) == FeatureNumber
@@ -199,6 +227,7 @@ public:
 ```
 Clients.txt              — client records
 Users.txt                — system user records with encrypted passwords
+Currencies.txt           — currency records with exchange rates
 LoginRegister.txt        — login audit trail (passwords encrypted)
 TransferLogRegister.txt  — transfer records
 ```
@@ -210,6 +239,9 @@ FirstName#//#LastName#//#PhoneNumber#//#Email#//#AccNumber#//#PinCode#//#Balance
 
 Users.txt:
 FirstName#//#LastName#//#PhoneNumber#//#Email#//#UserName#//#EncryptedPassword#//#Permissions
+
+Currencies.txt:
+CountryName#//#CurrencyCode#//#CurrencyName#//#Rate
 
 LoginRegister.txt:
 DateTime#//#UserName#//#EncryptedPassword#//#Permission
@@ -229,6 +261,8 @@ DateTime#//#SenderAccNum#//#ReceiverAccNum#//#Amount#//#SenderBalanceAfter#//#Re
 | `clsBankClient` | Client data, banking operations, file persistence |
 | `clsUser` | System user, permissions, authentication, login logging |
 | `clsScreen` | Base screen utilities, permission checking |
+| `clsCurrencyExchangeScreen` | Currency exchange sub-menu controller |
+| `clsCurrencyCalculatorScreen` | Convert amounts between currencies using live rates |
 | `clsInputValidate` | All input validation |
 | `clsString` | String utilities, encrypt/decrypt |
 | `clsDate` | Date/time utilities |
@@ -272,6 +306,8 @@ clsUser CurrentUser = clsUser::Find("", "");  // tracks logged-in user
 - When to apply design patterns and when to keep it simple
 - Active Record pattern vs layered architecture tradeoffs
 - The `override` keyword and why it matters
+- Building sub-menu systems with consistent screen architecture
+- Currency conversion logic and managing rate-based calculations
 
 ---
 
