@@ -7,6 +7,7 @@
 #include"clsListCurrenciesScreen.h"
 #include"clsFindCurrencyScreen.h"
 #include"clsUpdateCurrencyScreen.h"
+#include"clsCurrencyCalculatorScreen.h"
 #include"clsInputValidate.h"  
 
 using namespace std;
@@ -46,7 +47,7 @@ class clsCurrencyExchangeScreen : protected clsScreen
 
 	 static void _ShowCurrencyCalculatorScreen()
 	 {
-		
+		 clsCurrencyCalculatorScreen::Show();
 	 }
 
 	 static short _ReadCurrencyExchangeMenuOption()

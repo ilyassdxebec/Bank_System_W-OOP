@@ -134,7 +134,10 @@
       <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
     <ClInclude Include="clsUpdateCurrencyScreen.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Project Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="clsCurrencyCalculatorScreen.h">
+      <Filter>Header Files\Project Classes\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

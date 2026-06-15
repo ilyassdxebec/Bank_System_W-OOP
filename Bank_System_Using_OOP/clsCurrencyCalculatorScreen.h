@@ -2,16 +2,16 @@
 
 #include<iostream>
 
-#include"clsCurrency.h"
 #include"clsScreen.h"
+#include"clsCurrency.h"
+#include"clsInputValidate.h"
 
 using namespace std;
 
-class clsUpdateCurrencyScreen : protected clsScreen
+class clsCurrencyCalculatorScreen : protected clsScreen
 {
 
  private:
-
 
 	 static void _PrintCurrencyInfo(const clsCurrency& Currency)
 	 {
@@ -26,7 +26,7 @@ class clsUpdateCurrencyScreen : protected clsScreen
 		 cout << "___________________________________\n\n";
 	 }
 
-	 static clsCurrency _ReadCurrencyCode ()
+	 static clsCurrency _ReadCurrencyCode()
 	 {
 
 		 string CurrencyCode;
@@ -48,60 +48,14 @@ class clsUpdateCurrencyScreen : protected clsScreen
 		 return Currency;
 	 }
 
-	 static char _ConfirmUpdate()
-	 {
-
-		 char Choice;
-
-		 cout << "\nAre you sure you want to Update the rate of this Currency ? (y/n) : ";
-		 cin >> Choice;
-
-		 while (toupper(Choice) != 'Y' && toupper(Choice) != 'N')
-		 {
-			 cout << "\nInvalid Choice! Enter a vaild choice (y/n) : ";
-			 cin >> Choice;
-		 }
-
-		 return Choice;
-	 }
-
  public:
 
 	 static void Show()
 	 {
 
-		 char Choice;
+		 _ShowScreenHeader("+++ Currency Calculator Screen +++");
 
-		 _ShowScreenHeader("+++ Update Currency Screen +++");
 
-		 clsCurrency Currency = _ReadCurrencyCode();
-
-		 _PrintCurrencyInfo(Currency);
-
-		 Choice = _ConfirmUpdate();
-
-		 if (toupper(Choice) == 'Y')
-		 {
-
-			 float NewRate;
-
-			 cout << "\n+++ Updating Currency Rate +++\n";
-
-			 cout << "Please Enter New Currency Rate : ";
-
-			 NewRate = clsInputValidate::ReadFloatNumber();
-
-			 Currency.Update(NewRate);
-
-			 cout << "\nCurrency Rate Updated Successfully !!!\n";
-
-			 _PrintCurrencyInfo(Currency);
-		 }
-
-		 else
-		 {
-			 cout << "\nCurrency Wasn't Updated as you wanted !";
-		 }
 	 }
 };
 
